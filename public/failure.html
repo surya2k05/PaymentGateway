@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Failed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d7da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .failure-message {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+            width: 400px;
+        }
+        .failure-message img {
+            max-width: 100px;
+        }
+        .failure-message h1 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+        .failure-message p {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="failure-message">
+        <img src="cross.avif" alt="Company Logo" height="100px"/>
+        <h1>Payment Failed!</h1>
+        <p>Sorry, your payment could not be processed. Please try again later.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayU Payment Gateway Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .payment-form {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="hidden"],
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-form">
+        <h1>Payment Gateway</h1>
+        <form id="paymentForm" action="https://test.payu.in/_payment" method="post">
+            <input type="hidden" name="key" value="jt3gkm" />
+            <input type="hidden" name="txnid" id="txnid" />
+            <input type="hidden" name="productinfo" value="iPhone" />
+            <input type="hidden" name="amount" value="10" />
+            <input type="hidden" name="email" value="test@gmail.com" />
+            <input type="hidden" name="firstname" value="Suraj" />
+            <input type="hidden" name="lastname" value="Kumar" />
+            <input type="hidden" name="surl" value="http://localhost:3002/success.html" />
+            <input type="hidden" name="furl" value="https://apiplayground-response.herokuapp.com/" />
+            <input type="hidden" name="phone" value="9988776655" />
+            <input type="hidden" name="hash" id="hash" value="" />
+            <div class="form-group">
+                <input type="submit" value="Pay Now">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('paymentForm').onsubmit = function(e) {
+            e.preventDefault();
+
+            fetch('/generate-hash', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    amount: '10',
+                    productinfo: 'iPhone',
+                    firstname: 'Ashish',
+                    email: 'test@gmail.com'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('txnid').value = data.txnid; // Update txnid in form
+                document.getElementById('hash').value = data.hash;
+                document.getElementById('paymentForm').submit();
+            })
+            .catch(error => console.error('Error:', error));
+        };
+    </script>
+</body>
+</html>
